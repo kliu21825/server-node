@@ -1,5 +1,5 @@
 import pino from 'pino'
 
-const logger = pino({ target: 'pino-pretty', options: { colorize: true } })
+const logger = pino({ prettifier: { colorize: true } })
 
 export default logger
