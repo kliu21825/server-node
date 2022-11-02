@@ -1,25 +1,38 @@
 import { Router } from 'express'
 
+import {
+  getPersons,
+  getPerson,
+  createPerson,
+  updatePerson,
+  deletePerson,
+} from '../../models/persons'
+
 const router = Router()
 
 router.get('/', (req, res) => {
-  res.send({ msg: 'Get all Persons' })
+  const persons = getPersons()
+  res.send(persons)
 })
 
-router.get('/', (req, res) => {
-  res.send({ msg: `Getting Person ${req.params.id}` })
+router.get('/:id', (req, res) => {
+  const person = getPerson(req.params.id)
+  res.send(person)
 })
 
 router.post('/', (req, res) => {
-  res.send({ msg: 'Creating a new person' })
+  const newPerson = createPerson(req.body)
+  res.send(newPerson)
 })
 
-router.put('/', (req, res) => {
-  res.send({ msg: `Updating Person ${req.params.id}` })
+router.put('/:id', (req, res) => {
+  updatePerson(req.params.id, req.body)
+  res.send({ msg: `Person ${req.params.id} Updated` })
 })
 
-router.delete('/', (req, res) => {
-  res.send({ msg: `Deleting Person ${req.params.id}` })
+router.delete('/:id', (req, res) => {
+  deletePerson(req.params.id)
+  res.send({ msg: `Person ${req.params.id} Deleted` })
 })
 
 export default router
